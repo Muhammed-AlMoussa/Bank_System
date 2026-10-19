@@ -51,20 +51,24 @@ private :
 		if (ClientFile.is_open())
 		{
 			string ClientInfo;
+
 			while (getline(ClientFile, ClientInfo))
 			{
 				clsBankClient ClientObj = _ConvertLineToClientObject(ClientInfo);
+
 				Clients.push_back(ClientObj);				
 			}
+
 			ClientFile.close();
-			return Clients;
 		}
+		return Clients;
 	}
 
 	void _SaveClientObjectToFile(vector <clsBankClient>& Clients)
 	{
 		fstream ClientFile;
 		ClientFile.open("Clients.txt", ios::out);
+
 		if (ClientFile.is_open())
 		{
 			string Line;
@@ -79,14 +83,14 @@ private :
 
 	void _Update()
 	{
-		vector <clsBankClient> Clients = _LoadClientDataFromFile();
+		vector <clsBankClient> _vClients = _LoadClientDataFromFile();
 
-		for (clsBankClient& C : Clients)
+		for (clsBankClient& C : _vClients)
 		{
 			if (C.getAccountNumber() == getAccountNumber())
 			{
 				C = *this;
-				_SaveClientObjectToFile(Clients);
+				_SaveClientObjectToFile(_vClients);
 			}
 		}
 	}

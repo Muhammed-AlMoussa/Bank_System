@@ -28,13 +28,14 @@ void ReadClientInfo(clsBankClient& Client)
 void UpdateClient()
 {
 	string AccountNumber = "";
-	cout << "\nPlease Enter client Account Number: ";
-	cin >> AccountNumber;
+	
+	AccountNumber = clsInputValidate::ReadString();
 
 	while (!(clsBankClient::IsClientExist(AccountNumber)))
 	{
 		cout << "\nClient Account Number is not found , Enter another one: ";
-		cin >> AccountNumber;
+		AccountNumber = clsInputValidate::ReadString();
+
 	}
 	clsBankClient Client1 = clsBankClient::Find(AccountNumber);
 	Client1.Print();
@@ -42,17 +43,22 @@ void UpdateClient()
 	cout << "\nUpdate Client Info:\n";
 	cout << "\n----------------------\n";
 	ReadClientInfo(Client1);
+	//Client1.Email = "Mhf@gmail.com";
 
+	//Client1.Save();
 	clsBankClient::enSaveResult SaveResult;
 	SaveResult = Client1.Save();
+
 	switch (SaveResult)
 	{
+
 	case clsBankClient::enSaveResult::enSvSucceeded:
 	{
 		cout << "\nAccount Update it Successfuly\n";
 		Client1.Print();
 		break;
 	}
+
 	case clsBankClient::enSaveResult::enSvFailEmptyProject:
 	{
 		cout << "\nError account was not saved because it's Empty\n";
