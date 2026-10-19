@@ -31,7 +31,7 @@ public:
 	{
 		return _FirstName;
 	}
-	__declspec(property(get = FirstName, put = setFirstName)) string _FirstName;
+	__declspec(property(get = getFirstName, put = setFirstName)) string FirstName;
 
 	void setLastName(string LastName)
 	{
@@ -41,7 +41,7 @@ public:
 	{
 		return _LastName;
 	}
-	__declspec(property(get = LastName, put = setLastName)) string LastName;
+	__declspec(property(get = getLastName, put = setLastName)) string LastName;
 
 	string getFullName()
 	{
@@ -68,7 +68,7 @@ public:
 	{
 		return _Phone;
 	}
-	__declspec(property(get = getPhone, put = setPhone)) string Email;
+	__declspec(property(get = getPhone, put = setPhone)) string Phone;
 
 };
 

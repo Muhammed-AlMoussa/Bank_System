@@ -9,22 +9,22 @@
 class clsBankClient :public clsPerson
 {
 private :
-	enum enMode{eEmptyMode = 1 , eUpdateMode = 2};
+	enum enMode{eEmptyMode = 0 , eUpdateMode = 1};
 	enMode _eMode;
 
 	string _AccountNumber;
 	string _PinCode;
 	double _AccountBalance;
 
-	clsBankClient _ConvertLineToObject(string Line)
+	static clsBankClient _ConvertLineToClientObject(string Line , string Separator = "#//#")
 	{
-		vector <string> vClient = clsString::Split(Line, "#//#");
+		vector <string> vClient = clsString::Split(Line, Separator);
 
 		return clsBankClient(enMode::eUpdateMode ,vClient[0], vClient[1], vClient[2], vClient[3], vClient[4],
 			vClient[5], stod(vClient[6]));
 	}
 
-	clsBankClient _GetEmptyClient()
+	static clsBankClient _GetEmptyClient()
 	{
 		return clsBankClient(enMode::eEmptyMode, "", "", "", "", "", "", 0);
 	}
@@ -40,7 +40,7 @@ public:
 		_AccountBalance = Salary;
 	}
 
-	static clsBankClient FindClient(string AccountNumber)
+	static clsBankClient Find(string AccountNumber)
 	{
 		fstream ClientFile;
 		
@@ -50,44 +50,44 @@ public:
 			string ClientInfo;
 			while (getline(ClientFile, ClientInfo))
 			{
-				clsBankClient ClientObj = ClientObj._ConvertLineToObject(ClientInfo);
+				clsBankClient ClientObj = _ConvertLineToClientObject(ClientInfo);
 				if (ClientObj._AccountNumber == AccountNumber)
 				{
+					ClientFile.close();
 					return ClientObj;
 				}
 			}
-			clsBankClient ClientObj = ClientObj._GetEmptyClient();
-			return ClientObj;
 			ClientFile.close();
 		}
+		return _GetEmptyClient();
 	}
 
-	static clsBankClient FindClient(string AccountNumber, string PINCode)
+	static clsBankClient Find(string AccountNumber, string PINCode)
 	{
-		clsBankClient ClientObj = FindClient(AccountNumber);
+		clsBankClient ClientObj = Find(AccountNumber);
 
 		if (ClientObj._PinCode == PINCode)
 			return ClientObj;
 
-		ClientObj = ClientObj._GetEmptyClient();
-		return ClientObj;
+		return _GetEmptyClient();
 	}
 
 	void Print()
 	{
 		cout << "\nClient Card:";
 		cout << "\n___________________";
-		cout << "\nFirstName   : " << getFirstName();
-		cout << "\nLastName    : " << getLastName();
+		cout << "\nFirstName   : " << FirstName;
+		cout << "\nLastName    : " << LastName;
 		cout << "\nFull Name   : " << getFullName();
-		cout << "\nEmail       : " << getEmail();
-		cout << "\nPhone       : " << getPhone();
+		cout << "\nEmail       : " << Email;
+		cout << "\nPhone       : " << Phone;
 		cout << "\nAcc. Number : " << _AccountNumber;
 		cout << "\nPassword    : " << _PinCode;
 		cout << "\nBalance     : " << _AccountBalance;
 		cout << "\n___________________\n";
 
 	}
+
 
 };
 
