@@ -28,6 +28,69 @@ private :
 	{
 		return clsBankClient(enMode::eEmptyMode, "", "", "", "", "", "", 0);
 	}
+	
+	string _ConvertClientObjectToLine(clsBankClient Client, string Separator = "#//#")
+	{
+		string Line = "";
+		Line += Client.FirstName + Separator;
+		Line += Client.LastName + Separator;
+		Line += Client.Email + Separator;
+		Line += Client.Phone + Separator;
+		Line += Client.getAccountNumber() + Separator;
+		Line += Client.PinCode + Separator;
+		Line += to_string(Client.AccountBalance);
+		return Line;
+	}
+
+	vector <clsBankClient> _LoadClientDataFromFile()
+	{
+		fstream ClientFile;
+		vector <clsBankClient> Clients;
+		
+		ClientFile.open("Clients.txt", ios::in);
+		if (ClientFile.is_open())
+		{
+			string ClientInfo;
+			while (getline(ClientFile, ClientInfo))
+			{
+				clsBankClient ClientObj = _ConvertLineToClientObject(ClientInfo);
+				Clients.push_back(ClientObj);				
+			}
+			ClientFile.close();
+			return Clients;
+		}
+	}
+
+	void _SaveClientObjectToFile(vector <clsBankClient>& Clients)
+	{
+		fstream ClientFile;
+		ClientFile.open("Clients.txt", ios::out);
+		if (ClientFile.is_open())
+		{
+			string Line;
+			for (clsBankClient& C : Clients)
+			{
+				Line = _ConvertClientObjectToLine(C);
+				ClientFile << Line << endl;
+			}
+			ClientFile.close();
+		}
+	}
+
+	void _Update()
+	{
+		vector <clsBankClient> Clients = _LoadClientDataFromFile();
+
+		for (clsBankClient& C : Clients)
+		{
+			if (C.getAccountNumber() == getAccountNumber())
+			{
+				C = *this;
+				_SaveClientObjectToFile(Clients);
+			}
+		}
+	}
+
 public:
 
 	clsBankClient(enMode eMode ,string FirstName,string LastName, string Email, string Phone,
@@ -39,6 +102,34 @@ public:
 		_PinCode = PINCode;
 		_AccountBalance = Salary;
 	}
+
+	string getAccountNumber()
+	{
+		return _AccountNumber;
+	}
+
+	void setPinCode(string PinCode)
+	{
+		_PinCode = PinCode;
+	}
+
+	string getPinCode()
+	{
+		return _PinCode;
+	}
+
+	__declspec(property(get = getPinCode, put = setPinCode)) string PinCode;
+	
+	void setAccountBalance(double AccountBalance)
+	{
+		_AccountBalance = AccountBalance;
+	}
+
+	double getAccountBalance()
+	{
+		return _AccountBalance;
+	}
+	__declspec(property(get = getAccountBalance, put = setAccountBalance)) double AccountBalance;
 
 	static clsBankClient Find(string AccountNumber)
 	{
@@ -66,10 +157,26 @@ public:
 	{
 		clsBankClient ClientObj = Find(AccountNumber);
 
+		if (ClientObj.IsEmpty())
+		{
+			return _GetEmptyClient();
+		}
+
 		if (ClientObj._PinCode == PINCode)
 			return ClientObj;
 
 		return _GetEmptyClient();
+	}
+
+	static bool IsClientExist(string AccountNumber)
+	{
+		clsBankClient Client = clsBankClient::Find(AccountNumber);
+		return (!Client.IsEmpty());
+	}
+
+	bool IsEmpty()
+	{
+		return (_eMode == enMode::eEmptyMode);
 	}
 
 	void Print()
@@ -88,6 +195,25 @@ public:
 
 	}
 
+	enum enSaveResult {enSvFailEmptyProject = 0 , enSvSucceeded = 1};
 
+	enSaveResult Save()
+	{
+		switch (_eMode)
+		{
+		case enMode::eEmptyMode:
+		{
+			return enSaveResult::enSvFailEmptyProject;
+			break;
+		}
+		case enMode::eUpdateMode:
+
+			_Update();
+
+			return enSaveResult::enSvSucceeded;
+			break;
+		}
+
+	}
 };
 
