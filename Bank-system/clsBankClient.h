@@ -9,7 +9,7 @@
 class clsBankClient :public clsPerson
 {
 private :
-	enum enMode{eEmptyMode = 0 , eUpdateMode = 1};
+	enum enMode{eEmptyMode = 0 , eUpdateMode = 1 , eAddMode = 2};
 	enMode _eMode;
 
 	string _AccountNumber;
@@ -95,6 +95,23 @@ private :
 		}
 	}
 
+	void _AddNew(string Line)
+	{
+		fstream ClientFile;
+		ClientFile.open("Clients.txt", ios::out);
+
+		if (ClientFile.is_open())
+		{
+			ClientFile << Line << endl;
+			ClientFile.close();
+		}
+	}
+
+	void _AddNewClient()
+	{
+		_AddNew(_ConvertClientObjectToLine(*this));
+	}
+
 public:
 
 	clsBankClient(enMode eMode ,string FirstName,string LastName, string Email, string Phone,
@@ -172,11 +189,17 @@ public:
 		return _GetEmptyClient();
 	}
 
+	static clsBankClient GetNewClientObject(string AccountNumber)
+	{
+		return clsBankClient(enMode::eAddMode, "", "", "", "", AccountNumber, "", 0);
+	}
+
 	static bool IsClientExist(string AccountNumber)
 	{
 		clsBankClient Client = clsBankClient::Find(AccountNumber);
 		return (!Client.IsEmpty());
 	}
+
 
 	bool IsEmpty()
 	{
@@ -199,7 +222,7 @@ public:
 
 	}
 
-	enum enSaveResult {enSvFailEmptyProject = 0 , enSvSucceeded = 1};
+	enum enSaveResult {enSvFailEmptyProject = 0 , enSvSucceeded = 1 , enSvFailAccountNumberExist = 2};
 
 	enSaveResult Save()
 	{
@@ -211,13 +234,29 @@ public:
 			break;
 		}
 		case enMode::eUpdateMode:
-
+		{
 			_Update();
 
 			return enSaveResult::enSvSucceeded;
 			break;
 		}
+		case enMode::eAddMode:
+		{
+			if (IsClientExist(_AccountNumber))
+				return enSaveResult::enSvFailAccountNumberExist;
 
+			else
+			{
+				_AddNewClient();
+				_eMode = enMode::eUpdateMode;
+				return enSaveResult::enSvSucceeded;
+			}
+
+		}
+
+		}
+	
+	
 	}
 };
 
