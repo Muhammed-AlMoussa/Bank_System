@@ -240,9 +240,21 @@ public:
 
 	}
 
-	static vector<clsBankClient> GetClientList()
+	static vector<clsBankClient> GetClientsList()
 	{
 		return _LoadClientDataFromFile();
+	}
+
+	static double GetTotalBalances()
+	{
+		vector <clsBankClient> vClients = GetClientsList();
+		double TotalBalance = 0;
+
+		for (clsBankClient& C : vClients)
+		{
+			TotalBalance += C.AccountBalance;
+		}
+		return TotalBalance;
 	}
 
 	enum enSaveResult {enSvFailEmptyProject = 0 , enSvSucceeded = 1 , enSvFailAccountNumberExist = 2};
