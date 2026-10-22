@@ -56,6 +56,19 @@ public:
 		return Number;
 	}
 
+	static short ReadShortNumber(string StringValidationMessage)
+	{
+		short Number;
+
+		while (!(cin >> Number))
+		{
+			cin.clear();
+			cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			cout << StringValidationMessage << endl;
+		}
+		return Number;
+	}
+
 	static int ReadIntNubmerBetween(int From, int To, string StringValidationMessage)
 	{
 		int Number = ReadIntNumber(StringValidationMessage);
@@ -66,6 +79,18 @@ public:
 		}
 		return Number;
 	}
+
+	static int ReadShortNubmerBetween(short From, short To, string StringValidationMessage)
+	{
+		short Number = ReadShortNumber(StringValidationMessage);
+		while (!IsNumberBetween(Number, From, To))
+		{
+			cout << StringValidationMessage;
+			Number = ReadShortNumber(StringValidationMessage);
+		}
+		return Number;
+	}
+
 
 	static int ReadDblNumber(string Messge)
 	{
