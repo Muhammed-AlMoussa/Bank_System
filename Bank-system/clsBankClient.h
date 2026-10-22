@@ -8,8 +8,8 @@
 
 class clsBankClient :public clsPerson
 {
-private :
-	enum enMode{eEmptyMode = 0 , eUpdateMode = 1 , eAddMode = 2};
+private:
+	enum enMode { eEmptyMode = 0, eUpdateMode = 1, eAddMode = 2 };
 	enMode _eMode;
 
 	string _AccountNumber;
@@ -17,11 +17,11 @@ private :
 	double _AccountBalance;
 	bool MarkToDelete = false;
 
-	static clsBankClient _ConvertLineToClientObject(string Line , string Separator = "#//#")
+	static clsBankClient _ConvertLineToClientObject(string Line, string Separator = "#//#")
 	{
 		vector <string> vClient = clsString::Split(Line, Separator);
 
-		return clsBankClient(enMode::eUpdateMode ,vClient[0], vClient[1], vClient[2], vClient[3], vClient[4],
+		return clsBankClient(enMode::eUpdateMode, vClient[0], vClient[1], vClient[2], vClient[3], vClient[4],
 			vClient[5], stod(vClient[6]));
 	}
 
@@ -29,7 +29,7 @@ private :
 	{
 		return clsBankClient(enMode::eEmptyMode, "", "", "", "", "", "", 0);
 	}
-	
+
 	string _ConvertClientObjectToLine(clsBankClient Client, string Separator = "#//#")
 	{
 		string Line = "";
@@ -43,11 +43,11 @@ private :
 		return Line;
 	}
 
-	vector <clsBankClient> _LoadClientDataFromFile()
+	static vector <clsBankClient> _LoadClientDataFromFile()
 	{
 		fstream ClientFile;
 		vector <clsBankClient> Clients;
-		
+
 		ClientFile.open("Clients.txt", ios::in);
 		if (ClientFile.is_open())
 		{
@@ -57,7 +57,7 @@ private :
 			{
 				clsBankClient ClientObj = _ConvertLineToClientObject(ClientInfo);
 
-				Clients.push_back(ClientObj);				
+				Clients.push_back(ClientObj);
 			}
 
 			ClientFile.close();
@@ -102,7 +102,7 @@ private :
 	void _AddNew(string Line)
 	{
 		fstream ClientFile;
-		ClientFile.open("Clients.txt", ios::app );
+		ClientFile.open("Clients.txt", ios::app);
 		if (ClientFile.is_open())
 		{
 			ClientFile << Line << endl;
@@ -117,11 +117,11 @@ private :
 
 public:
 
-	clsBankClient(enMode eMode ,string FirstName,string LastName, string Email, string Phone,
-		 string AccountNumber , string PINCode , double Salary) : 
+	clsBankClient(enMode eMode, string FirstName, string LastName, string Email, string Phone,
+		string AccountNumber, string PINCode, double Salary) :
 		clsPerson(FirstName, LastName, Phone, Email)
 	{
-		_eMode =eMode;
+		_eMode = eMode;
 		_AccountNumber = AccountNumber;
 		_PinCode = PINCode;
 		_AccountBalance = Salary;
@@ -143,7 +143,7 @@ public:
 	}
 
 	__declspec(property(get = getPinCode, put = setPinCode)) string PinCode;
-	
+
 	void setAccountBalance(double AccountBalance)
 	{
 		_AccountBalance = AccountBalance;
@@ -158,9 +158,9 @@ public:
 	static clsBankClient Find(string AccountNumber)
 	{
 		fstream ClientFile;
-		
+
 		ClientFile.open("Clients.txt", ios::in);
-		if(ClientFile.is_open())
+		if (ClientFile.is_open())
 		{
 			string ClientInfo;
 			while (getline(ClientFile, ClientInfo))
@@ -238,6 +238,11 @@ public:
 		cout << "\nBalance     : " << _AccountBalance;
 		cout << "\n___________________\n";
 
+	}
+
+	static vector<clsBankClient> GetClientList()
+	{
+		return _LoadClientDataFromFile();
 	}
 
 	enum enSaveResult {enSvFailEmptyProject = 0 , enSvSucceeded = 1 , enSvFailAccountNumberExist = 2};

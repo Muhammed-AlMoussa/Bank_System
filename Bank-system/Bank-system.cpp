@@ -1,6 +1,7 @@
 #include<iostream>
 #include"clsBankClient.h"
 #include"clsInputValidate.h"
+#include<iomanip>
 
 using namespace std;
 
@@ -23,6 +24,18 @@ void ReadClientInfo(clsBankClient& Client)
 
 	cout << "\nEnter AccountBalance: ";
 	Client.AccountBalance = clsInputValidate::ReadDblNumber("Invalide,Enter another one: ");
+}
+
+void PrintClientRecordLine(clsBankClient Client)
+{
+
+	cout << "| " << setw(15) << left << Client.getAccountNumber();
+	cout << "| " << setw(20) << left << Client.getFullName();
+	cout << "| " << setw(12) << left << Client.Phone;
+	cout << "| " << setw(20) << left << Client.Email;
+	cout << "| " << setw(10) << left << Client.PinCode;
+	cout << "| " << setw(12) << left << Client.AccountBalance << endl;;
+
 }
 
 void UpdateClient()
@@ -133,9 +146,37 @@ void DeleteClient()
 		Client.Print();
 	}
 }
+
+void ShowClientList()
+{
+	vector <clsBankClient> vClients = clsBankClient::GetClientList();
+
+	cout << "\n\t\t\t\t\tClient List (" << vClients.size() << ") Client(s).";
+	cout << "\n_______________________________________________________";
+	cout << "_________________________________________\n" << endl;
+
+	cout << "| " << left << setw(15) << "Accout Number";
+	cout << "| " << left << setw(20) << "Client Name";
+	cout << "| " << left << setw(12) << "Phone";
+	cout << "| " << left << setw(20) << "Email";
+	cout << "| " << left << setw(10) << "Pin Code";
+	cout << "| " << left << setw(12) << "Balance";
+	cout << "\n_______________________________________________________";
+	cout << "_________________________________________\n" << endl;
+
+
+
+	if (vClients.size() == 0)
+		cout << "\t\t\tClient List is Empty!\n";
+	else
+		for (clsBankClient& C : vClients)
+		{
+			PrintClientRecordLine(C);
+		}
+}
 int main()
 {
-	DeleteClient();
-
+	
+	ShowClientList();
 	return 0;
 }
