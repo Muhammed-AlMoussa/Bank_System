@@ -76,11 +76,10 @@ void AddClient()
 	{
 		cout << "\nAccountNumber is found , please enter another one: ";
 		AccountNumber = clsInputValidate::ReadString();
-
 	}
-
-	clsBankClient Client1 = clsBankClient::GetNewClientObject(AccountNumber);
 	
+	clsBankClient Client1 = clsBankClient::GetNewClientObject(AccountNumber);
+
 	ReadClientInfo(Client1);
 
 	clsBankClient::enSaveResult SaveResult = Client1.Save();
@@ -109,9 +108,34 @@ void AddClient()
 
 		
 }
+
+void DeleteClient()
+{
+	char Accept = false;
+
+	cout << "\nEnter AccountNumber: ";
+	string AccountNumber = clsInputValidate::ReadString();
+
+	while (!clsBankClient::IsClientExist(AccountNumber))
+	{
+		cout << "\nAccountNumber is not found , please enter another one: ";
+		AccountNumber = clsInputValidate::ReadString();
+	}
+	clsBankClient Client = clsBankClient::Find(AccountNumber);
+	Client.Print();
+
+	cout << "\nAre you sure? y/n";
+	cin >> Accept;
+	if (tolower(Accept) == 'y')
+	{
+		Client.Delete();
+		cout << "\nClient Delete Successfuly\n";
+		Client.Print();
+	}
+}
 int main()
 {
-	AddClient();
+	DeleteClient();
 
 	return 0;
 }

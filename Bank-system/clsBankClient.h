@@ -15,6 +15,7 @@ private :
 	string _AccountNumber;
 	string _PinCode;
 	double _AccountBalance;
+	bool MarkToDelete = false;
 
 	static clsBankClient _ConvertLineToClientObject(string Line , string Separator = "#//#")
 	{
@@ -74,8 +75,11 @@ private :
 			string Line;
 			for (clsBankClient& C : Clients)
 			{
-				Line = _ConvertClientObjectToLine(C);
-				ClientFile << Line << endl;
+				if (C.MarkToDelete == false)
+				{
+					Line = _ConvertClientObjectToLine(C);
+					ClientFile << Line << endl;
+				}
 			}
 			ClientFile.close();
 		}
@@ -98,8 +102,7 @@ private :
 	void _AddNew(string Line)
 	{
 		fstream ClientFile;
-		ClientFile.open("Clients.txt", ios::out);
-
+		ClientFile.open("Clients.txt", ios::app );
 		if (ClientFile.is_open())
 		{
 			ClientFile << Line << endl;
@@ -200,10 +203,25 @@ public:
 		return (!Client.IsEmpty());
 	}
 
-
 	bool IsEmpty()
 	{
 		return (_eMode == enMode::eEmptyMode);
+	}
+
+	bool Delete()
+	{
+		vector <clsBankClient> vClient = _LoadClientDataFromFile();
+		for (clsBankClient& C : vClient)
+		{
+			if (C.getAccountNumber() == getAccountNumber())
+			{
+				C.MarkToDelete = true;
+				_SaveClientObjectToFile(vClient);
+				*this = _GetEmptyClient();
+				return true;
+			}
+		}
+		return false;
 	}
 
 	void Print()
@@ -244,7 +262,7 @@ public:
 		{
 			if (IsClientExist(_AccountNumber))
 				return enSaveResult::enSvFailAccountNumberExist;
-
+			
 			else
 			{
 				_AddNewClient();
