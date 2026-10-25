@@ -2,6 +2,8 @@
 #include<iostream>
 #include<iomanip>
 #include"clsScreen.h"
+#include"clsInputValidate.h"
+#include"clsShowClientListScreen.h"
 
 using namespace std;
 
@@ -24,15 +26,17 @@ private:
 
     static  void _GoBackToMainMenue()
     {
+
         cout << setw(37) << left << "" << "\n\tPress any key to go back to Main Menue...\n";
 
         system("pause>0");
+        system("cls");
         ShowMainMenue();
     }
 
     static void _ShowAllClientsScreen()
     {
-        cout << "\nClient List Screen Will be here...\n";
+        clsShowClientListScreen::ShowClientListScreen();
 
 
     }
@@ -134,11 +138,8 @@ private:
 
     }
 
-
-
-
-
 public:
+
 
 	static void ShowMainMenue()
 	{

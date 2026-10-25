@@ -9,12 +9,16 @@ class clsScreen
 
 public :
 
-	static void _DrawScreenHeader(string ScreenName)
+	static void _DrawScreenHeader(string ScreenName , string Subtitle = "")
 	{
 		cout << "\n\n";
-		cout << setw(90)  << "----------------------------------------------------\n\n";
-		cout << setw(70)  << ScreenName << endl;
-		cout << setw(90)  << "---------------------------------------------------\n\n\n";
+		cout << setw(37) << left << "" << "----------------------------------------------------\n\n";
+		cout << setw(58) << left << "" << ScreenName <<"\n";
+		if (Subtitle != "")
+		{
+			cout << setw(58) << left << "" << Subtitle <<"\n";
+		}
+		cout << setw(37) << left << "" <<"---------------------------------------------------\n\n\n";
 
 	}
 
