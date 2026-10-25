@@ -140,12 +140,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Bank-system.cpp" />
+    <ClCompile Include="clsFindClientScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="clsAddNewCleintScreen.h" />
     <ClInclude Include="clsBankClient.h" />
     <ClInclude Include="clsDate.h" />
     <ClInclude Include="clsDeleteClientScreen.h" />
+    <ClInclude Include="clsFindClientScreen.h" />
     <ClInclude Include="clsInputValidate.h" />
     <ClInclude Include="clsMainScreen.h" />
     <ClInclude Include="clsPerson.h" />

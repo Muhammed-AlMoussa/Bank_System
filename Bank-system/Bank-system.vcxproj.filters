@@ -18,6 +18,9 @@
     <ClCompile Include="Bank-system.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="clsFindClientScreen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="clsString.h">
@@ -54,6 +57,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="clsUpdateClientScreen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="clsFindClientScreen.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
