@@ -5,6 +5,7 @@
 #include"clsInputValidate.h"
 #include"clsShowClientListScreen.h"
 #include"clsAddNewCleintScreen.h"
+#include"clsDeleteClientScreen.h"
 
 using namespace std;
 
@@ -50,8 +51,8 @@ private:
 
     static void _ShowDeleteClientScreen()
     {
-        cout << "\nDelete Client Screen Will be here...\n";
-
+        //cout << "\nDelete Client Screen Will be here...\n";
+        clsDeleteClientScreen::ShowDeleteClientScreen();
     }
 
     static void _ShowUpdateClientScreen()
