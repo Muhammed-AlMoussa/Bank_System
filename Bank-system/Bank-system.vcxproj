@@ -142,6 +142,7 @@
     <ClCompile Include="Bank-system.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="clsAddNewCleintScreen.h" />
     <ClInclude Include="clsBankClient.h" />
     <ClInclude Include="clsDate.h" />
     <ClInclude Include="clsInputValidate.h" />
