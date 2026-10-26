@@ -69,13 +69,24 @@ public:
 		return Number;
 	}
 
-	static int ReadIntNubmerBetween(int From, int To, string StringValidationMessage)
+	static int ReadIntNumberBetween(int From, int To, string StringValidationMessage)
 	{
 		int Number = ReadIntNumber(StringValidationMessage);
 		while (!IsNumberBetween(Number, From, To))
 		{
 			cout << StringValidationMessage;
 			Number = ReadIntNumber(StringValidationMessage);
+		}
+		return Number;
+	}
+
+	static double ReadDblNumberBetween(double From, double To, string StringValidationMessage)
+	{
+		double Number = ReadDblNumber(StringValidationMessage);
+		while (!IsNumberBetween(Number, From, To))
+		{
+			cout << StringValidationMessage;
+			Number = ReadDblNumber(StringValidationMessage);
 		}
 		return Number;
 	}
@@ -92,7 +103,7 @@ public:
 	}
 
 
-	static int ReadDblNumber(string Messge)
+	static double ReadDblNumber(string Messge)
 	{
 		double Number;
 		while (!(cin >> Number))
@@ -100,17 +111,6 @@ public:
 			cin.clear();
 			cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			cout << Messge << endl;
-		}
-		return Number;
-	}
-
-	static double ReadDblNubmerBetween(double From, double To, string StringValidationMessage)
-	{
-		double Number = ReadDblNumber(StringValidationMessage);
-		while (!IsNumberBetween(Number, From, To))
-		{
-			cout << StringValidationMessage;
-			Number = ReadDblNumber(StringValidationMessage);
 		}
 		return Number;
 	}
