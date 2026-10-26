@@ -45,7 +45,7 @@ public:
 
         double Amount = 0;
         cout << "\nPlease enter a Withdraw amount? ";
-        Amount = clsInputValidate::ReadDblNumberBetween(0 , Client1.AccountBalance,"Enter a valid Amount: ");
+        Amount = clsInputValidate::ReadDblNumberBetween(1 , Client1.AccountBalance,"Enter a valid Amount: ");
 
         cout << "\nAre you sure you want to perform this transaction? ";
         char Answer = 'n';
