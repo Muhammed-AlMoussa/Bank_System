@@ -155,6 +155,7 @@
     <ClInclude Include="clsScreen.h" />
     <ClInclude Include="clsShowClientListScreen.h" />
     <ClInclude Include="clsString.h" />
+    <ClInclude Include="clsTotalBalancesScreen.h" />
     <ClInclude Include="clsTransactionScreen.h" />
     <ClInclude Include="clsUpdateClientScreen.h" />
     <ClInclude Include="clsUtil.h" />

@@ -283,7 +283,7 @@ public:
 		_AccountBalance += Amount;
 		Save();
 	}
-
+	 
 	void Withdraw(double Amount)
 	{
 		_AccountBalance -= Amount;
