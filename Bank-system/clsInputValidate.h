@@ -91,7 +91,7 @@ public:
 		return Number;
 	}
 
-	static int ReadShortNubmerBetween(short From, short To, string StringValidationMessage)
+	static int ReadShortNumberBetween(short From, short To, string StringValidationMessage)
 	{
 		short Number = ReadShortNumber(StringValidationMessage);
 		while (!IsNumberBetween(Number, From, To))
@@ -101,7 +101,6 @@ public:
 		}
 		return Number;
 	}
-
 
 	static double ReadDblNumber(string Messge)
 	{

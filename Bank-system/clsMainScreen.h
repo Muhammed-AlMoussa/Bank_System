@@ -9,6 +9,7 @@
 #include"clsUpdateClientScreen.h"
 #include"clsFindClientScreen.h"
 #include"clsTransactionScreen.h"
+#include"clsManageUser.h"
 
 using namespace std;
 
@@ -25,7 +26,7 @@ private:
     static short _ReadMainMenueOption()
     {
         cout << setw(37) << left << "" << "Choose what do you want to do? [1 to 8]? ";
-        short Choice = clsInputValidate::ReadShortNubmerBetween(1, 8, "Enter Number between 1 to 8? ");
+        short Choice = clsInputValidate::ReadShortNumberBetween(1, 8, "Enter Number between 1 to 8? ");
         return Choice;
     }
 
@@ -78,7 +79,8 @@ private:
 
     static void _ShowManageUsersMenue()
     {
-        cout << "\nUsers Menue Will be here...\n";
+        //cout << "\nUsers Menue Will be here...\n";
+        clsManageUser::ShowManageUsersMenue();
 
     }
 
