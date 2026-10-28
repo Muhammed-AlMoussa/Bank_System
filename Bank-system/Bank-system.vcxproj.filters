@@ -77,7 +77,10 @@
     <ClInclude Include="clsManageUser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="clsBankUser.h">
+    <ClInclude Include="clsUser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="clsUsersListScreen.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

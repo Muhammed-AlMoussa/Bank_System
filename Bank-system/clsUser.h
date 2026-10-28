@@ -5,7 +5,7 @@
 #include<string>
 #include"clsString.h"
 
-class clsUser :protected clsPerson
+class clsUser :public clsPerson
 {
 private:
 	
@@ -54,7 +54,7 @@ private:
 	void _SaveUsersDataToFile( vector <clsUser>& vUser)
 	{
 		fstream User;
-		User.open("User.txt", ios::out);
+		User.open("Users.txt", ios::out);
 		if (User.is_open())
 		{
 			string UserData;
@@ -93,7 +93,7 @@ private:
 	void _AddUser(string UserData)
 	{
 		fstream User;
-		User.open("User.txt", ios::out);
+		User.open("Users.txt", ios::app);
 		if (User.is_open())
 		{
 							
@@ -125,7 +125,7 @@ private:
 public:
 
 	clsUser(enMode Mode, string FirstName, string LastName,
-		string Email, string Phone, string UserName, string Password,
+		string Phone, string Email,  string UserName, string Password,
 		int Permissions) :
 		clsPerson(FirstName, LastName, Email, Phone)
 
@@ -255,7 +255,7 @@ public:
 		return clsUser(enMode::eAddMode, "", "", "", "", UserName, "", 0);
 	}
 
-	static vector<clsUser> GetUserList()
+	static vector<clsUser> GetUsersList()
 	{
 		return _LoadUsersDataFromFile();
 	}
