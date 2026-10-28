@@ -14,7 +14,7 @@ private:
 	bool _MarkUserToDelete = false;
 	short _Permissions;
 
-	enum enMode { eEmptyMode = 0 , eUpdateMode = 1  , eAddMode = 3 };
+	enum enMode { eEmptyMode = 0 , eUpdateMode = 1  , eAddMode = 2 };
 	enMode _Mode;
 
 	static vector <clsUser> _LoadUsersDataFromFile()
@@ -123,6 +123,11 @@ private:
 	}
 
 public:
+
+	enum enPermissions {
+		eAll = -1, pListClients = 1, pAddNewClient = 2, pDeleteClient = 4,
+		pUpdateClients = 8, pFindClient = 16, pTranactions = 32, pManageUsers = 64
+	};
 
 	clsUser(enMode Mode, string FirstName, string LastName,
 		string Phone, string Email,  string UserName, string Password,

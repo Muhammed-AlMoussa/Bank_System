@@ -3,6 +3,8 @@
 #include"clsScreen.h"
 #include"clsInputValidate.h"
 #include"clsUsersListScreen.h"
+#include"clsAddNewUserScreen.h"
+#include"clsDeleteUserScreen.h"
 
 class clsManageUser :protected clsScreen
 {
@@ -34,14 +36,14 @@ private:
 
     static void _ShowAddNewUserScreen()
     {
-        cout << "\nAdd New User Screen Will Be Here.\n";
-
+        //cout << "\nAdd New User Screen Will Be Here.\n";
+        clsAddNewUserScreen::AddNewUserScreen();
     }
 
     static void _ShowDeleteUserScreen()
     {
-        cout << "\nDelete User Screen Will Be Here.\n";
-
+        //cout << "\nDelete User Screen Will Be Here.\n";
+        clsDeleteUserScreen::ShowDeleteUserScreen();
     }
 
     static void _ShowUpdateUserScreen()
