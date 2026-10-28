@@ -145,6 +145,7 @@
   <ItemGroup>
     <ClInclude Include="clsAddNewCleintScreen.h" />
     <ClInclude Include="clsBankClient.h" />
+    <ClInclude Include="clsBankUser.h" />
     <ClInclude Include="clsDate.h" />
     <ClInclude Include="clsDeleteClientScreen.h" />
     <ClInclude Include="clsDepositScreen.h" />

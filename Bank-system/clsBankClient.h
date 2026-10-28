@@ -188,8 +188,6 @@ public:
 
 		if (ClientObj._PinCode == PINCode)
 			return ClientObj;
-
-		return _GetEmptyClient();
 	}
 
 	static clsBankClient GetNewClientObject(string AccountNumber)

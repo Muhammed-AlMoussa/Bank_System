@@ -312,7 +312,7 @@ public:
         return CountVowels(_Value);
     }
 
-    static vector<string> Split(string S1, string Delim)
+    static vector<string> Split(string S1, string Delim = "#//#")
     {
 
         vector<string> vString;
