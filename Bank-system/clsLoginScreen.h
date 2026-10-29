@@ -23,7 +23,8 @@ private :
 			}
 			if (Trys == 0)
 			{
-				return LoginFailed;
+				cout << "\nyou are locked after 3 faild trails \n";
+				return false;
 			}
 			cout << "\nEnter User Name: ";
 			string UserName = clsInputValidate::ReadString();
@@ -38,7 +39,7 @@ private :
 		} while (LoginFailed);
 		
 		clsMainScreen::ShowMainMenue();
-		return LoginFailed;
+		return true;
 	}
 
 public:
