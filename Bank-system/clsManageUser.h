@@ -119,7 +119,10 @@ public:
 
     static void ShowManageUsersMenue()
     {
-
+        if (!CheckUserPermissonsScreen(clsUser::enPermissions::pManageUsers))
+        {
+            return;
+        }
         system("cls");
         _DrawScreenHeader("Manage Users Screen");
 

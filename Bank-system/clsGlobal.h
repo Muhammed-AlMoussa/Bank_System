@@ -1,5 +1,5 @@
 #pragma once
 #include"clsUser.h"
 
-clsUser CurrentUser = clsUser::Find("", "");
+inline clsUser CurrentUser = clsUser::Find("", "");
 

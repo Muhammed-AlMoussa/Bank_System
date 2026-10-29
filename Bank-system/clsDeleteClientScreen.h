@@ -26,6 +26,11 @@ private :
 public :
 	static void ShowDeleteClientScreen()
 	{
+		if (!CheckUserPermissonsScreen(clsUser::enPermissions::pDeleteClient))
+		{
+			return;
+		}
+
 		_DrawScreenHeader("Delete Client");
 		char Accept = 'n';
 		cout << "\nEnter an Account Number: ";

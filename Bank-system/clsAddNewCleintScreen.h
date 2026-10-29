@@ -48,6 +48,11 @@ public:
 
 	static void ShowAddNewClientScreen()
 	{
+		if (!CheckUserPermissonsScreen(clsUser::enPermissions::pAddNewClient))
+		{
+			return;
+		}
+
 		_DrawScreenHeader("Add New Client");
 
 		cout << "Enter an AccountNumber : ";

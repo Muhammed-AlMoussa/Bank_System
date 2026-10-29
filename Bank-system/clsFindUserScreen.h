@@ -4,6 +4,7 @@
 #include "clsPerson.h"
 #include "clsUser.h"
 #include "clsInputValidate.h"
+#include"clsGlobal.h"
 
 class clsFindUserScreen :protected clsScreen
 {
@@ -29,7 +30,7 @@ public:
 
     static void ShowFindUserScreen()
     {
-
+        
         _DrawScreenHeader("\t  Find User Screen");
 
         string UserName;

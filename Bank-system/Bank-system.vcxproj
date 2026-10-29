@@ -140,7 +140,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Bank-system.cpp" />
-    <ClCompile Include="clsFindClientScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="clsAddNewCleintScreen.h" />

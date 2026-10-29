@@ -6,10 +6,10 @@ using namespace std;
 int main()
 {
 	//clsMainScreen::ShowMainMenue();
-	while (true)
-
+	bool LoginFailed = false;
+	while (!LoginFailed)
 	{
-		clsLoginScreen::ShowLoginScreen();
+		 LoginFailed = clsLoginScreen::ShowLoginScreen();
 	}
 	return 0;
 }

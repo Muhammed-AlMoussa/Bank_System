@@ -18,9 +18,6 @@
     <ClCompile Include="Bank-system.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="clsFindClientScreen.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="clsString.h">
