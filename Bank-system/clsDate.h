@@ -105,6 +105,25 @@ public:
 		return clsDate(Day, Month, Year);
 	}
 
+	static string GetSystemClock()
+	{
+		//system
+		time_t t = time(0);
+		tm* now = localtime(&t);
+
+		short Hour, Minute, Second;
+		string Clock = "";
+		Hour = now->tm_hour;
+		Minute = now->tm_min;
+		Second = now->tm_sec;
+
+		Clock += to_string(Hour) + ":";
+		Clock += to_string(Minute) + ":";
+		Clock += to_string(Second) ;
+
+		return Clock;
+	}
+
 	static	bool IsValidDate(clsDate Date)
 	{
 

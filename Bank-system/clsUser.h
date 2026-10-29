@@ -4,25 +4,25 @@
 #include<fstream>
 #include<string>
 #include"clsString.h"
-
+#include"clsDate.h"
 
 class clsUser :public clsPerson
 {
 private:
-	
+
 	string _UserName;
 	string _Password;
 	bool _MarkUserToDelete = false;
 	short _Permissions;
 
-	enum enMode { eEmptyMode = 0 , eUpdateMode = 1  , eAddMode = 2 };
+	enum enMode { eEmptyMode = 0, eUpdateMode = 1, eAddMode = 2 };
 	enMode _Mode;
 
 	static vector <clsUser> _LoadUsersDataFromFile()
 	{
 		fstream User;
 		vector <clsUser> vUser;
-		
+
 		User.open("Users.txt", ios::in);
 		if (User.is_open())
 		{
@@ -52,14 +52,14 @@ private:
 
 	}
 
-	void _SaveUsersDataToFile( vector <clsUser>& vUser)
+	void _SaveUsersDataToFile(vector <clsUser>& vUser)
 	{
 		fstream User;
 		User.open("Users.txt", ios::out);
 		if (User.is_open())
 		{
 			string UserData;
-			for (clsUser s: vUser)
+			for (clsUser s : vUser)
 			{
 				if (s._MarkUserToDelete == false)
 				{
@@ -97,9 +97,9 @@ private:
 		User.open("Users.txt", ios::app);
 		if (User.is_open())
 		{
-							
+
 			User << UserData << endl;
-			
+
 			User.close();
 		}
 	}
@@ -123,6 +123,35 @@ private:
 
 	}
 
+	string _ConvertUserRegisterInfoToLine(clsUser User)
+	{
+		string UserRegisterInfo = "";
+
+		UserRegisterInfo += clsDate::DateToString(clsDate()) + " - ";
+		UserRegisterInfo += clsDate::GetSystemClock() + "#//#";
+		UserRegisterInfo += User.UserName + "#//#";
+		UserRegisterInfo += User.Password + "#//#";
+		UserRegisterInfo += to_string(User.Permissions);
+
+		return UserRegisterInfo;
+	}
+
+	void _SaveUsersLoginRegisterToFile(string UserInfo)
+	{
+		fstream UsersLoginFile;
+		UsersLoginFile.open("LoginRegister.txt", ios::app);
+
+		if (UsersLoginFile.is_open())
+		{
+			UsersLoginFile << UserInfo << endl;
+			UsersLoginFile.close();
+		}
+	}
+
+	void _LoginRegister()
+	{
+		_SaveUsersLoginRegisterToFile(_ConvertUserRegisterInfoToLine(*this));
+	}
 public:
 
 	enum enPermissions {
@@ -309,5 +338,10 @@ public:
 		else
 			return false;
 	}
+
+	void SaveLoginRegister()
+	 {
+		 _LoginRegister();
+	 }
 };
 
