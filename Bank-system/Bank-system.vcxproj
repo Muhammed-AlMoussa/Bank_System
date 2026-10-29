@@ -148,6 +148,9 @@
     <ClInclude Include="clsBankClient.h" />
     <ClInclude Include="clsDeleteUserScreen.h" />
     <ClInclude Include="clsFindUserScreen.h" />
+    <ClInclude Include="clsGlobal.h" />
+    <ClInclude Include="clsLoginScreen.h" />
+    <ClInclude Include="clsLogout.h" />
     <ClInclude Include="clsUpdateUserScreen.h" />
     <ClInclude Include="clsUser.h" />
     <ClInclude Include="clsDate.h" />

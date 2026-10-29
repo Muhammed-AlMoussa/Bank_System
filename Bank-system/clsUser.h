@@ -176,14 +176,9 @@ public:
 	}
 	__declspec(property(get = GetPermissions, put = SetPermissions)) short Permissions;
 
-	static bool IsEmpty()
+	bool IsEmpty()
 	{
-		return (enMode::eEmptyMode);
-	}
-
-	static bool IsUserExist()
-	{
-		return (!IsEmpty());
+		return (_Mode == enMode::eEmptyMode);
 	}
 
 	static bool IsUserExistByUserName(string UserName)
@@ -229,13 +224,15 @@ public:
 	{
 		clsUser User = Find(UserName);
 
-		if (IsEmpty())
+		if (User.IsEmpty())
 		{
 			return _GetEmptyUser();
 		}
 		
 		if (UserName == User._UserName && Password == User._Password)
 			return User;
+		else
+			return _GetEmptyUser();
 	}
 
 	bool Delete()
