@@ -18,7 +18,15 @@ public:
 
 	static void ShowRegisterScreen()
 	{
+
+        if (!_CheckUserPermissonsScreen(clsUser::enPermissions::pListLogInRegister)) 
+        {
+            return;
+        }
+
 		vector <clsUser::stLoginRegisterRecord> vRegisterLogIn = clsUser::GetLoginRegisterList();
+
+
 		string Title = "Login Register List Screen";
 		string Subtitle = ("(" + to_string(vRegisterLogIn.size()) + ") Clients");
 		_DrawScreenHeader(Title , Subtitle);

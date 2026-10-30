@@ -119,7 +119,7 @@ public:
 
     static void ShowManageUsersMenue()
     {
-        if (!CheckUserPermissonsScreen(clsUser::enPermissions::pManageUsers))
+        if (!_CheckUserPermissonsScreen(clsUser::enPermissions::pManageUsers))
         {
             return;
         }

@@ -26,7 +26,7 @@ private :
 public :
 	static void FindClientScreen()
 	{
-		if (!CheckUserPermissonsScreen(clsUser::enPermissions::pFindClient))
+		if (!_CheckUserPermissonsScreen(clsUser::enPermissions::pFindClient))
 		{
 			return;
 		}

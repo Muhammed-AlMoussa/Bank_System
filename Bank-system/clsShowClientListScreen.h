@@ -41,7 +41,7 @@ private :
 public :
 	static void ShowClientListScreen()
 	{
-        if (!CheckUserPermissonsScreen(clsUser::enPermissions::pListClients))
+        if (!_CheckUserPermissonsScreen(clsUser::enPermissions::pListClients))
         {
             return;
         }

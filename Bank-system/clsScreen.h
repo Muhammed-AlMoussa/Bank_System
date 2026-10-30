@@ -30,7 +30,7 @@ public :
 		cout << setw(37) << left << "" << "Date: " << clsDate::DateToString(clsDate()) << endl;
 	}
 
-	static bool CheckUserPermissonsScreen(clsUser::enPermissions Permission)
+	static bool _CheckUserPermissonsScreen(clsUser::enPermissions Permission)
 	{
 		if (!CurrentUser.CheckUserPermissions(Permission))
 		{

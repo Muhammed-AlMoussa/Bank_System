@@ -48,7 +48,7 @@ public:
 
 	static void ShowAddNewClientScreen()
 	{
-		if (!CheckUserPermissonsScreen(clsUser::enPermissions::pAddNewClient))
+		if (!_CheckUserPermissonsScreen(clsUser::enPermissions::pAddNewClient))
 		{
 			return;
 		}

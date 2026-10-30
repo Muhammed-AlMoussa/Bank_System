@@ -88,7 +88,7 @@ public:
 
 	static void ShowTransactionsMenue()
 	{
-        if (!CheckUserPermissonsScreen(clsUser::enPermissions::pTranactions))
+        if (!_CheckUserPermissonsScreen(clsUser::enPermissions::pTranactions))
         {
             return;
         }

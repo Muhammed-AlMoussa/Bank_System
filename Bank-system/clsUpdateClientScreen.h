@@ -49,7 +49,7 @@ public :
 	
 	static void UpdateClientScreen()
 	{
-		if (!CheckUserPermissonsScreen(clsUser::enPermissions::pUpdateClients))
+		if (!_CheckUserPermissonsScreen(clsUser::enPermissions::pUpdateClients))
 		{
 			return;
 		}
