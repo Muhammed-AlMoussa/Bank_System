@@ -150,6 +150,7 @@
     <ClInclude Include="clsGlobal.h" />
     <ClInclude Include="clsLoginScreen.h" />
     <ClInclude Include="clsLogout.h" />
+    <ClInclude Include="clsRegisterLoginScreen.h" />
     <ClInclude Include="clsUpdateUserScreen.h" />
     <ClInclude Include="clsUser.h" />
     <ClInclude Include="clsDate.h" />

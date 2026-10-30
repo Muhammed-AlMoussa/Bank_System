@@ -12,6 +12,7 @@ private:
 
 	string _UserName;
 	string _Password;
+	string _LoginDate;
 	bool _MarkUserToDelete = false;
 	short _Permissions;
 
@@ -123,41 +124,69 @@ private:
 
 	}
 
-	string _ConvertUserRegisterInfoToLine(clsUser User)
+	string _PrepareRegisterLogIn(clsUser User , string Seprator = "#//#")
 	{
 		string UserRegisterInfo = "";
 
-		UserRegisterInfo += clsDate::DateToString(clsDate()) + " - ";
-		UserRegisterInfo += clsDate::GetSystemClock() + "#//#";
-		UserRegisterInfo += User.UserName + "#//#";
-		UserRegisterInfo += User.Password + "#//#";
+		UserRegisterInfo += clsDate::GetSystemDateTimeString() + Seprator;
+		UserRegisterInfo += User.UserName + Seprator;
+		UserRegisterInfo += User.Password + Seprator;
 		UserRegisterInfo += to_string(User.Permissions);
 
 		return UserRegisterInfo;
 	}
 
-	void _SaveUsersLoginRegisterToFile(string UserInfo)
+	void _SaveUsersLoginRegisterToFile()
 	{
+		string UserLogin = _PrepareRegisterLogIn(*this);
+
 		fstream UsersLoginFile;
 		UsersLoginFile.open("LoginRegister.txt", ios::app);
 
 		if (UsersLoginFile.is_open())
 		{
-			UsersLoginFile << UserInfo << endl;
+			UsersLoginFile << UserLogin << endl;
+
 			UsersLoginFile.close();
 		}
 	}
 
-	void _LoginRegister()
+	static clsUser _UserRegisterLineToObj(string UserRegisterLine , string Separator = "#//#")
 	{
-		_SaveUsersLoginRegisterToFile(_ConvertUserRegisterInfoToLine(*this));
+		vector <string> vRegister = clsString::Split(UserRegisterLine , Separator);
+
+		return clsUser(vRegister[0], vRegister[1],
+			vRegister[2], stoi(vRegister[3]));
 	}
+
+	static vector <clsUser> _LoadUserRegisterDataFromFile()
+	{
+		vector<clsUser> vUserRegister;
+
+		fstream UserRegister;
+
+		UserRegister.open("LoginRegister.txt", ios::in);
+		if (UserRegister.is_open())
+		{
+			string RegisterLine;
+			while (getline(UserRegister, RegisterLine))
+			{
+				clsUser cUser = _UserRegisterLineToObj(RegisterLine);
+				vUserRegister.push_back(cUser);
+			}
+
+			UserRegister.close();
+		}
+		return vUserRegister;
+	}
+
 public:
 
 	enum enPermissions {
 		eAll = -1, pListClients = 1, pAddNewClient = 2, pDeleteClient = 4,
 		pUpdateClients = 8, pFindClient = 16, pTranactions = 32, pManageUsers = 64
 	};
+
 
 	clsUser(enMode Mode, string FirstName, string LastName,
 		string Phone, string Email,  string UserName, string Password,
@@ -171,6 +200,14 @@ public:
 		_Permissions = Permissions;
 	}
 
+	clsUser(string LoginDate, string UserName, string Password, short Permission)
+		:clsPerson("", "", "", "")
+	{
+		_LoginDate = LoginDate;
+		_UserName = UserName;
+		_Password = Password;
+		_Permissions = Permission;
+	}
 
 	string GetUserName()
 	{
@@ -206,6 +243,10 @@ public:
 	}
 	__declspec(property(get = GetPermissions, put = SetPermissions)) short Permissions;
 
+	string getRegisterDate()
+	{
+		return _LoginDate;
+	}
 	bool IsEmpty()
 	{
 		return (_Mode == enMode::eEmptyMode);
@@ -339,9 +380,14 @@ public:
 			return false;
 	}
 
-	void SaveLoginRegister()
-	 {
-		 _LoginRegister();
-	 }
+	void RegisterLogin()
+	{
+		_SaveUsersLoginRegisterToFile();
+	}
+
+	static vector <clsUser> GetLoginRegisterList()
+	{
+		return _LoadUserRegisterDataFromFile();
+	}
 };
 

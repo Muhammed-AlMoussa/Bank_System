@@ -37,7 +37,7 @@ private :
 			
 			Trials--;
 		} while (LoginFailed);
-		CurrentUser.SaveLoginRegister();
+		CurrentUser.RegisterLogin();
 
 		clsMainScreen::ShowMainMenue();
 		return true;
