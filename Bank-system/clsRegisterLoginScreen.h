@@ -7,9 +7,9 @@
 class clsRegisterLoginScreen : protected clsScreen
 {
 private:
-    static void _PrintUserRegisterLine(clsUser RegisterLogIn)
+    static void _PrintUserRegisterLine(clsUser::stLoginRegisterRecord RegisterLogIn)
     {
-        cout << setw(8) << left << "" << "| " << left << setw(35) << RegisterLogIn.getRegisterDate();
+        cout << setw(8) << left << "" << "| " << left << setw(35) << RegisterLogIn._LoginRegistDate;
         cout << "| " << left << setw(20) << RegisterLogIn.UserName;
         cout << "| " << left << setw(20) << RegisterLogIn.Password;
         cout << "| " << left << setw(10) << RegisterLogIn.Permissions;
@@ -18,7 +18,7 @@ public:
 
 	static void ShowRegisterScreen()
 	{
-		vector <clsUser> vRegisterLogIn = clsUser::GetLoginRegisterList();
+		vector <clsUser::stLoginRegisterRecord> vRegisterLogIn = clsUser::GetLoginRegisterList();
 		string Title = "Login Register List Screen";
 		string Subtitle = ("(" + to_string(vRegisterLogIn.size()) + ") Clients");
 		_DrawScreenHeader(Title , Subtitle);
@@ -36,7 +36,7 @@ public:
         if (vRegisterLogIn.size() == 0)
             cout << "No Logins Available In the System!\n";
 
-        for (clsUser& S : vRegisterLogIn)
+        for (clsUser::stLoginRegisterRecord& S : vRegisterLogIn)
         {
             _PrintUserRegisterLine(S);
             cout << "\n";

@@ -9,10 +9,10 @@
 class clsUser :public clsPerson
 {
 private:
+	struct stLoginRegisterRecord;
 
 	string _UserName;
 	string _Password;
-	string _LoginDate;
 	bool _MarkUserToDelete = false;
 	short _Permissions;
 
@@ -151,17 +151,23 @@ private:
 		}
 	}
 
-	static clsUser _UserRegisterLineToObj(string UserRegisterLine , string Separator = "#//#")
+	static stLoginRegisterRecord _UserRegisterLineToObj(string UserRegisterLine , string Separator = "#//#")
 	{
-		vector <string> vRegister = clsString::Split(UserRegisterLine , Separator);
 
-		return clsUser(vRegister[0], vRegister[1],
-			vRegister[2], stoi(vRegister[3]));
+		vector <string> vRegister = clsString::Split(UserRegisterLine, Separator);
+		stLoginRegisterRecord sLoginRegister;
+
+		sLoginRegister._LoginRegistDate = vRegister[0];
+		sLoginRegister.UserName = vRegister[1];
+		sLoginRegister.Password = vRegister[2];
+		sLoginRegister.Permissions = stoi(vRegister[3]);
+
+		return sLoginRegister;
 	}
 
-	static vector <clsUser> _LoadUserRegisterDataFromFile()
+	static vector <stLoginRegisterRecord> _LoadUserRegisterDataFromFile()
 	{
-		vector<clsUser> vUserRegister;
+		vector<stLoginRegisterRecord> vUserRegister;
 
 		fstream UserRegister;
 
@@ -171,7 +177,7 @@ private:
 			string RegisterLine;
 			while (getline(UserRegister, RegisterLine))
 			{
-				clsUser cUser = _UserRegisterLineToObj(RegisterLine);
+				stLoginRegisterRecord cUser = _UserRegisterLineToObj(RegisterLine);
 				vUserRegister.push_back(cUser);
 			}
 
@@ -187,6 +193,13 @@ public:
 		pUpdateClients = 8, pFindClient = 16, pTranactions = 32, pManageUsers = 64
 	};
 
+	struct stLoginRegisterRecord
+	{
+		string UserName;
+		string Password;
+		string _LoginRegistDate;
+		short Permissions;
+	};
 
 	clsUser(enMode Mode, string FirstName, string LastName,
 		string Phone, string Email,  string UserName, string Password,
@@ -198,15 +211,6 @@ public:
 		_UserName = UserName;
 		_Password = Password;
 		_Permissions = Permissions;
-	}
-
-	clsUser(string LoginDate, string UserName, string Password, short Permission)
-		:clsPerson("", "", "", "")
-	{
-		_LoginDate = LoginDate;
-		_UserName = UserName;
-		_Password = Password;
-		_Permissions = Permission;
 	}
 
 	string GetUserName()
@@ -243,10 +247,6 @@ public:
 	}
 	__declspec(property(get = GetPermissions, put = SetPermissions)) short Permissions;
 
-	string getRegisterDate()
-	{
-		return _LoginDate;
-	}
 	bool IsEmpty()
 	{
 		return (_Mode == enMode::eEmptyMode);
@@ -385,7 +385,7 @@ public:
 		_SaveUsersLoginRegisterToFile();
 	}
 
-	static vector <clsUser> GetLoginRegisterList()
+	static vector <stLoginRegisterRecord> GetLoginRegisterList()
 	{
 		return _LoadUserRegisterDataFromFile();
 	}
