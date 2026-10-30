@@ -18,6 +18,17 @@ private:
 		cout << "\n--------------------------------\n\n";
 
 	}
+
+	static short _ReadAmount(clsBankClient SourceClient)
+	{
+		short Amount = 0;
+		cout << "\nEnter Transfer Amount: ";
+		Amount = clsInputValidate::
+			ReadDblNumberBetween(0, SourceClient.AccountBalance,
+				"Amout Exceeds the available Balance,Enter another Amount: ");
+		return Amount;
+	}
+
 public:
 
 	static void ShowTransferScreen()
@@ -32,8 +43,8 @@ public:
 			AccoutNumber = clsInputValidate::ReadString();
 		}
 
-		clsBankClient Client1 = clsBankClient::Find(AccoutNumber);
-		_PrintClientInfo(Client1);
+		clsBankClient SourceClient = clsBankClient::Find(AccoutNumber);
+		_PrintClientInfo(SourceClient);
 
 		cout << "\nEnter an Account Number To transfer To: ";
 		AccoutNumber = clsInputValidate::ReadString();
@@ -43,27 +54,29 @@ public:
 			cout << "\nEnter an Account Number To transfer To: ";
 			AccoutNumber = clsInputValidate::ReadString();
 		}
-		clsBankClient Client2 = clsBankClient::Find(AccoutNumber);
-		_PrintClientInfo(Client2);
+		clsBankClient DestinationClient = clsBankClient::Find(AccoutNumber);
+		_PrintClientInfo(DestinationClient);
 
-		short Amount = 0;
-		cout << "\nEnter Transfer Amount: ";
-		Amount = clsInputValidate::
-			ReadDblNumberBetween(0 , Client1.AccountBalance ,
-				"Amout Exceeds the available Balance,Enter another Amount: ");
+		short Amount = _ReadAmount(SourceClient);
 
 		char Accept = 'n';
 		cout << "\nAre you sure you want to perform this operation?y/n: ";
 		cin >> Accept;
 		if(tolower(Accept) == 'y')
 		{
-			Client1.Withdraw(Amount);
-			Client2.Deposit(Amount);
+			if (SourceClient.Transfer(Amount, DestinationClient)) 
+{
+				cout << "\nTransfer Complete Succefully :-)\n";
+			}
+			else
+			{
+				cout << "\nTransfer Faild :-(\n";
+			}
 
-			_PrintClientInfo(Client1);
-			_PrintClientInfo(Client2);
 		}
 		
+		_PrintClientInfo(SourceClient);
+		_PrintClientInfo(DestinationClient);
 	}
 
 };

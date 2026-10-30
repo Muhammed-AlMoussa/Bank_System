@@ -287,5 +287,16 @@ public:
 		_AccountBalance -= Amount;
 		Save();
 	}
+
+	bool Transfer(double Amount , clsBankClient& Client2)
+	{
+		if (Amount > AccountBalance)
+			return false;
+		{
+			Withdraw(Amount);
+			Client2.Deposit(Amount);
+			return true;
+		}
+	}
 };
 
