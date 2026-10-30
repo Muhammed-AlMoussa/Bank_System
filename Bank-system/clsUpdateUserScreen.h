@@ -115,6 +115,12 @@ private:
             Permissions += clsUser::enPermissions::pManageUsers;
         }
 
+        cout << "\nShow Register List Screen? y/n? ";
+        cin >> Answer;
+        if (tolower(Answer) == 'y')
+        {
+            Permissions |= clsUser::enPermissions::pListLogInRegister;
+        }
         return Permissions;
 
     }

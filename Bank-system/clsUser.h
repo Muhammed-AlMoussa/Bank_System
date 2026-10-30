@@ -371,7 +371,7 @@ public:
 
 	}
 
-	 bool CheckUserPermissions(enPermissions Permission)
+	bool CheckUserPermissions(enPermissions Permission)
 	{
 		if (this->Permissions== enPermissions::eAll)
 			return true;
