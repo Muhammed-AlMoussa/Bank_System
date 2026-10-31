@@ -196,13 +196,13 @@ public:
 
 	struct stTransferLog
 	{
+		string DataTimeTransfer;
 		string SourceAccNum;
 		string DestinationAccNum;
-		string DataTimeTransfer;
 		double Amount;
-		string UserName;
 		double SourceBalance;
 		double DestinationBalance;
+		string UserName;
 	};
 
 	string getAccountNumber()

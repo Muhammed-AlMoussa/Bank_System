@@ -5,6 +5,7 @@
 #include<string>
 #include"clsString.h"
 #include"clsDate.h"
+#include"clsUtil.h"
 
 class clsUser :public clsPerson
 {
@@ -31,6 +32,7 @@ private:
 			while (getline(User, UserInfo))
 			{
 				clsUser sUser = _ConvertLineToUserObject(UserInfo);
+				//sUser.Password = _DecryptText(sUser.Password, 123);
 				vUser.push_back(sUser);
 			}
 			User.close();
@@ -41,12 +43,13 @@ private:
 	string _ConvertUserObjectToLine(clsUser User, string Seperator = "#//#")
 	{
 		string UserRecord = "";
+		
 		UserRecord += User.FirstName + Seperator;
 		UserRecord += User.LastName + Seperator;
 		UserRecord += User.Email + Seperator;
 		UserRecord += User.Phone + Seperator;
 		UserRecord += User.UserName + Seperator;
-		UserRecord += User.Password + Seperator;
+		UserRecord += clsUtil::EncryptText(User.Password, 123) + Seperator;
 		UserRecord += to_string(User.Permissions);
 
 		return UserRecord;
@@ -60,7 +63,7 @@ private:
 		if (User.is_open())
 		{
 			string UserData;
-			for (clsUser s : vUser)
+			for (clsUser& s : vUser)
 			{
 				if (s._MarkUserToDelete == false)
 				{
@@ -78,7 +81,7 @@ private:
 		vUserData = clsString::Split(Line, Seperator);
 
 		return clsUser(enMode::eUpdateMode, vUserData[0], vUserData[1], vUserData[2],
-			vUserData[3], vUserData[4], vUserData[5], stoi(vUserData[6]));
+			vUserData[3], vUserData[4], clsUtil::DecryptText(vUserData[5], 123), stoi(vUserData[6]));
 
 	}
 
@@ -98,6 +101,7 @@ private:
 		User.open("Users.txt", ios::app);
 		if (User.is_open())
 		{
+			
 
 			User << UserData << endl;
 
@@ -130,7 +134,7 @@ private:
 
 		UserRegisterInfo += clsDate::GetSystemDateTimeString() + Seprator;
 		UserRegisterInfo += User.UserName + Seprator;
-		UserRegisterInfo += User.Password + Seprator;
+		UserRegisterInfo += clsUtil::EncryptText(User.Password, 123) + Seprator;
 		UserRegisterInfo += to_string(User.Permissions);
 
 		return UserRegisterInfo;
@@ -156,10 +160,10 @@ private:
 
 		vector <string> vRegister = clsString::Split(UserRegisterLine, Separator);
 		stLoginRegisterRecord sLoginRegister;
-
+		
 		sLoginRegister._LoginRegistDate = vRegister[0];
 		sLoginRegister.UserName = vRegister[1];
-		sLoginRegister.Password = vRegister[2];
+		sLoginRegister.Password = clsUtil:: DecryptText(vRegister[2], 123);;
 		sLoginRegister.Permissions = stoi(vRegister[3]);
 
 		return sLoginRegister;
@@ -178,6 +182,8 @@ private:
 			while (getline(UserRegister, RegisterLine))
 			{
 				stLoginRegisterRecord cUser = _UserRegisterLineToObj(RegisterLine);
+				
+
 				vUserRegister.push_back(cUser);
 			}
 
