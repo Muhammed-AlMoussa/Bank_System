@@ -1,9 +1,10 @@
 #pragma once
 #include<iostream>
+#include"InterfaceCommunication.h"
 
 using namespace std;
 
-class clsPerson
+class clsPerson : public InterfaceCommunication
 {
 private:
 
@@ -70,5 +71,19 @@ public:
 	}
 	__declspec(property(get = getPhone, put = setPhone)) string Phone;
 
+	void SendEmail(string Body, string Title) 
+	{
+
+
+	}
+	void SendSMS(string Body , string Title)
+	{
+		
+	}
+
+	void SendFax(string Body, string Title)
+	{
+
+	}
 };
 
