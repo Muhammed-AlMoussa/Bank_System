@@ -5,6 +5,8 @@
 #include"clsString.h"
 #include<fstream>
 #include"clsPerson.h"
+#include"clsDate.h"
+#include"clsGlobal.h"
 
 class clsBankClient :public clsPerson
 {
@@ -115,6 +117,34 @@ private:
 		_AddNew(_ConvertClientObjectToLine(*this));
 	}
 
+	string _PrepareTransferLogLine(double Amount, clsBankClient DestinationClient , string Separator = "#//#")
+	{
+		string TransferLogLine = "";
+
+		TransferLogLine += clsDate::GetSystemDateTimeString() + Separator;
+		TransferLogLine += this->getAccountNumber() + Separator;
+		TransferLogLine += DestinationClient.getAccountNumber() + Separator;
+		TransferLogLine += to_string(Amount) + Separator;
+		TransferLogLine += to_string(this->AccountBalance) + Separator;
+		TransferLogLine += to_string(DestinationClient.AccountBalance) + Separator;
+		TransferLogLine += CurrentUser.UserName;
+
+		return TransferLogLine;
+
+	}
+
+	void _SaveTransferLogToFile(double Amount , clsBankClient DestinationClient)
+	{
+		string TransferLoginLine = _PrepareTransferLogLine(Amount, DestinationClient);
+
+		fstream TransferLog;
+		TransferLog.open("TransferLog.txt", ios::app);
+		if (TransferLog.is_open())
+		{
+			TransferLog << TransferLoginLine << endl;
+			TransferLog.close();
+		}
+	}
 public:
 
 	clsBankClient(enMode eMode, string FirstName, string LastName, string Email, string Phone,
@@ -292,11 +322,12 @@ public:
 	{
 		if (Amount > AccountBalance)
 			return false;
-		{
-			Withdraw(Amount);
-			Client2.Deposit(Amount);
-			return true;
-		}
+		
+		Withdraw(Amount);
+		Client2.Deposit(Amount);
+		_SaveTransferLogToFile(Amount , Client2);
+		return true;
+		
 	}
 };
 
