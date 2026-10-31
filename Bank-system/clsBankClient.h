@@ -13,7 +13,7 @@ class clsBankClient :public clsPerson
 private:
 	enum enMode { eEmptyMode = 0, eUpdateMode = 1, eAddMode = 2 };
 	enMode _eMode;
-
+	struct stTransferLog;
 	string _AccountNumber;
 	string _PinCode;
 	double _AccountBalance;
@@ -138,13 +138,50 @@ private:
 		string TransferLoginLine = _PrepareTransferLogLine(Amount, DestinationClient);
 
 		fstream TransferLog;
-		TransferLog.open("TransferLog.txt", ios::app);
+		TransferLog.open("TransferLog.txt",ios::out | ios::app);
 		if (TransferLog.is_open())
 		{
 			TransferLog << TransferLoginLine << endl;
 			TransferLog.close();
 		}
 	}
+
+	static stTransferLog _ConvertTransferLogLineToSturct(string TransferLine , string Separator = "#//#")
+	{
+		vector <string> vTransferRecords = clsString::Split(TransferLine, Separator);
+
+		stTransferLog sTransferInfo;
+		sTransferInfo.DataTimeTransfer = vTransferRecords[0];
+		sTransferInfo.SourceAccNum = vTransferRecords[1];
+		sTransferInfo.DestinationAccNum = vTransferRecords[2];
+		sTransferInfo.Amount = stod(vTransferRecords[3]);
+		sTransferInfo.SourceBalance = stod(vTransferRecords[4]);
+		sTransferInfo.DestinationBalance = stod(vTransferRecords[5]);
+		sTransferInfo.UserName = vTransferRecords[6];
+
+		return sTransferInfo;
+	}
+
+	static  vector <stTransferLog> _LoadTransferLogDataFromFile()
+	{
+		vector <stTransferLog> vTransferLog;
+		
+		fstream TransferLog;
+		TransferLog.open("TransferLog.txt", ios::in);
+		if (TransferLog.is_open())
+		{
+			string TransferLogRecord;
+			while (getline(TransferLog, TransferLogRecord)) 
+			{
+				stTransferLog sTransferLogInfo =
+					_ConvertTransferLogLineToSturct(TransferLogRecord);
+				vTransferLog.push_back(sTransferLogInfo);
+			}
+			TransferLog.close();
+		}
+		return vTransferLog;
+	}
+
 public:
 
 	clsBankClient(enMode eMode, string FirstName, string LastName, string Email, string Phone,
@@ -156,6 +193,17 @@ public:
 		_PinCode = PINCode;
 		_AccountBalance = Salary;
 	}
+
+	struct stTransferLog
+	{
+		string SourceAccNum;
+		string DestinationAccNum;
+		string DataTimeTransfer;
+		double Amount;
+		string UserName;
+		double SourceBalance;
+		double DestinationBalance;
+	};
 
 	string getAccountNumber()
 	{
@@ -328,6 +376,11 @@ public:
 		_SaveTransferLogToFile(Amount , Client2);
 		return true;
 		
+	}
+
+	static vector <stTransferLog> GetTransferLogList()
+	{
+		return _LoadTransferLogDataFromFile();
 	}
 };
 

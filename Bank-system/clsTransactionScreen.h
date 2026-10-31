@@ -7,6 +7,7 @@
 #include"clsWithdrawScreen.h"
 #include"clsTotalBalancesScreen.h"
 #include"clsTransferScreen.h"
+#include"clsShowTransferLogScreen.h"
 
 class clsTransactionScreen :protected clsScreen
 {
@@ -14,13 +15,13 @@ private :
     enum enTransactionsMenueOptions {
         eDeposit = 1, eWithdraw = 2,
         eShowTotalBalance = 3, eTransfer = 4,
-        eShowMainMenue = 5
+        eTransferLog = 5 ,eShowMainMenue = 6
     };
 
     static short _ReadShortNumber()
     {
         short Number = clsInputValidate::
-            ReadShortNumberBetween(1, 5, "Enter Number Between 1 & 5 : ");
+            ReadShortNumberBetween(1, 6, "Enter Number Between 1 & 6 : ");
         return Number;
     }
 
@@ -46,6 +47,12 @@ private :
     {
         //cout << "Transfer Screen would be here\n";
         clsTransferScreen::ShowTransferScreen();
+    }
+
+    static void _ShowTransferLogScreen()
+    {
+        //cout << "Transfer Log Screen would be here\n";
+        clsShowTransferLogScreen::ShowTransferLogScreen();
     }
 
     static void _GoBackToTransactionsMenue()
@@ -90,6 +97,12 @@ private :
             _GoBackToTransactionsMenue();
             break;
            
+        case enTransactionsMenueOptions::eTransferLog:
+            system("cls");
+            _ShowTransferLogScreen();
+            _GoBackToTransactionsMenue();
+            break;
+
         case enTransactionsMenueOptions::eShowMainMenue:
         {
             //do nothing here the main screen will handle it :-) ;
@@ -115,7 +128,8 @@ public:
         cout << setw(37) << left << "" << "\t[2] Withdraw.\n";
         cout << setw(37) << left << "" << "\t[3] Total Balances.\n";
         cout << setw(37) << left << "" << "\t[4] Transfer.\n";
-        cout << setw(37) << left << "" << "\t[5] Main Menue.\n";
+        cout << setw(37) << left << "" << "\t[5] Transfer Log.\n";
+        cout << setw(37) << left << "" << "\t[6] Main Menue.\n";
         cout << setw(37) << left << "" << "===========================================\n";
         cout << setw(37) << left << "" << "Choose what do you want to do: ";
 
