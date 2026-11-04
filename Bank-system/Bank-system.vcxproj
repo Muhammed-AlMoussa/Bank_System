@@ -145,6 +145,8 @@
     <ClInclude Include="clsAddNewCleintScreen.h" />
     <ClInclude Include="clsAddNewUserScreen.h" />
     <ClInclude Include="clsBankClient.h" />
+    <ClInclude Include="clsCurrency.h" />
+    <ClInclude Include="clsCurrencyScreen.h" />
     <ClInclude Include="clsDeleteUserScreen.h" />
     <ClInclude Include="clsFindUserScreen.h" />
     <ClInclude Include="clsGlobal.h" />

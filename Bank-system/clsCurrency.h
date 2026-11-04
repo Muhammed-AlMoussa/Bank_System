@@ -192,7 +192,7 @@ public:
             for (clsCurrency& C : Currency)
             {
 
-                if (C.getCountry() == CountryName)
+                if (C.getCurrencyName() == CurrencyName)
                 {
                     MyFile.close();
                     return C;
@@ -202,6 +202,18 @@ public:
 
         }
 
+    }
+
+    bool IsEmpty()
+    {
+        return (_Mode == enMode::eEmptyMode);
+    }
+
+    static bool IsCurrencyExist(string CurrencyName)
+    {
+        clsCurrency Currency = clsCurrency::FindByCurrencyName(CurrencyName);
+
+        return (!Currency.IsEmpty());
     }
 };
 
