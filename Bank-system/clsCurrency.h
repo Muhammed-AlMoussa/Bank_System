@@ -227,15 +227,22 @@ public:
         return _LoadCurrencysDataFromFile();
     }
 
-    static float ToDollar( float AmountToConvert , float Rate)
+    float CurrencyToDollar( float AmountToConvert)
     {
         
-        return AmountToConvert / Rate;
+        return AmountToConvert / getRate();
     }
 
-    static float FromDollar(float AmountToConvert , float Rate)
+    float ConvertToOtherCurrecny(float AmountToConvert , clsCurrency CurrencyTo)
     {
-        return AmountToConvert * Rate;
+        float USDAmount = CurrencyToDollar(AmountToConvert);
+
+        if (getCurrencyCode() == "USD")
+        {
+            return USDAmount;
+        }
+
+        return (USDAmount * CurrencyTo.getRate());
 
     }
 };
