@@ -21,6 +21,19 @@ private:
 		cout << "\n___________________\n";
 	}
 
+	static void _ShowResult(clsCurrency cCurrency)
+	{
+		if (!cCurrency.IsEmpty())
+		{
+			cout << "\nCurrency Found :-)\n ";
+			_PrintCurrencyCard(cCurrency);
+		}
+
+		else
+		{
+			cout << "\nCourrecy Did not found\n";
+		}
+	}
 public:
 
 	static void ShowFindCurrencyScreen()
@@ -37,18 +50,7 @@ public:
 			string CurrencyCode = clsInputValidate::ReadString();
 
 			clsCurrency cCurrency= clsCurrency::FindByCurrencyCode(CurrencyCode);
-			if (!cCurrency.IsEmpty())
-			{
-				cout << "\nCurrency Found :-)\n ";
-				_PrintCurrencyCard(cCurrency);
-			}
-
-			else
-			{
-				cout << "\nCourrecy Did not found\n";
-			}
-
-
+			_ShowResult(cCurrency);
 		}
 
 		else
@@ -57,16 +59,7 @@ public:
 			string CountryName = clsInputValidate::ReadString();
 
 			clsCurrency cCurrency = clsCurrency::FindByCountry(CountryName);
-			if (!cCurrency.IsEmpty())
-			{
-				cout << "\nCurrency Found :-)\n ";
-				_PrintCurrencyCard(cCurrency);
-			}
-
-			else
-			{
-				cout << "\nCourrecy Did not found\n";
-			}
+			_ShowResult(cCurrency);
 		}
 	}
 };

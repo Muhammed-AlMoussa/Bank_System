@@ -157,6 +157,7 @@
     <ClInclude Include="clsRegisterLoginScreen.h" />
     <ClInclude Include="clsShowTransferLogScreen.h" />
     <ClInclude Include="clsTransferScreen.h" />
+    <ClInclude Include="clsUpdateCurrencyRate.h" />
     <ClInclude Include="clsUpdateUserScreen.h" />
     <ClInclude Include="clsUser.h" />
     <ClInclude Include="clsDate.h" />
@@ -177,6 +178,10 @@
     <ClInclude Include="clsUtil.h" />
     <ClInclude Include="clsWithdrawScreen.h" />
     <ClInclude Include="InterfaceCommunication.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Bank-system.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
