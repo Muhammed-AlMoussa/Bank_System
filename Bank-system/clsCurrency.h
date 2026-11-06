@@ -126,7 +126,7 @@ public:
 		_Mode = Mode;
 		_Country = Country;
 		_CurrencyCode = CurrencyCode;
-		CurrencyName = CurrencyName;
+		_CurrencyName = CurrencyName;
 		_Rate = Rate;
 	}
 
@@ -148,7 +148,7 @@ public:
 	void UpdateRate(float NewRate)
 	{
         _Rate = NewRate;
-		_Update;
+		_Update();
 	}
 
     float getRate()
@@ -214,6 +214,11 @@ public:
         clsCurrency Currency = clsCurrency::FindByCurrencyName(CurrencyName);
 
         return (!Currency.IsEmpty());
+    }
+
+    static vector <clsCurrency> GetCurrenciesList()
+    {
+        return _LoadCurrencysDataFromFile();
     }
 };
 

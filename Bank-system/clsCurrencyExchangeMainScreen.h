@@ -2,6 +2,7 @@
 #include<iostream>
 #include"clsScreen.h"
 #include"clsInputValidate.h"
+#include"clsCurrenciesExchangeList.h"
 
 class clsCurrencyScreen : protected clsScreen
 {
@@ -32,7 +33,8 @@ private:
 	static void _ShowCurrenciesList()
 	{
 
-		cout << "Currencies List would be here\n";
+		//cout << "Currencies List would be here\n";
+		clsCurrenciesExchangeList::ShowCurrenciesExchangeListScreen();
 	}
 
 
@@ -102,7 +104,7 @@ public:
 		_DrawScreenHeader("Currency Exchange");
 
 		cout << setw(37) << left << "" << "===========================================\n";
-		cout << setw(37) << left << "" << "\tCurrency Exchange Main Menu\n";
+		cout << setw(37) << left << "" << "\t   Currency Exchange Main Menu\n";
 		cout << setw(37) << left << "" << "===========================================\n";
 		cout << setw(37) << left << "" << "\t[1] List Currencies.\n";
 		cout << setw(37) << left << "" << "\t[2] Find Currency.\n";
