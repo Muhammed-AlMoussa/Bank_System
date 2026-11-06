@@ -8,8 +8,19 @@
 class clsUpdateCurrencyRate : protected clsScreen
 {
 private:
+
+	static float _ReadNewRate()
+	{
+		double NewRate;
+
+		cout << "\nEnter New Rate: ";
+		cin >> NewRate;
+		return NewRate;
+	}
 	static void _PrintCurrencyCard(clsCurrency cCurrency)
 	{
+		cout << "\nCurrency Found :-)\n ";
+
 		cout << "\nCorrency Card: \n";
 		cout << "\n___________________";
 		cout << "\nCountry    : " << cCurrency.getCountry();
@@ -18,22 +29,6 @@ private:
 		cout << "\nRate(1$) = : " << cCurrency.getRate();
 		cout << "\n___________________\n";
 	}
-
-	static void _ShowResult(clsCurrency cCurrency)
-	{
-		if (!cCurrency.IsEmpty())
-		{
-			cout << "\nCurrency Found :-)\n ";
-			_PrintCurrencyCard(cCurrency);
-		}
-
-		else
-		{
-			cout << "\nCourrecy Did not found\n";
-			return;
-		}
-	}
-
 public:
 
 	static void ShowUpdateCurrencyScreen()
@@ -42,12 +37,17 @@ public:
 
 		cout << "\nPlease enter Currency Code: ";
 		string CurrencyCode = clsInputValidate::ReadString();
-		clsCurrency cCurrency = clsCurrency::FindByCurrencyCode(CurrencyCode);
-		if(!cCurrency.IsEmpty())
+		
+		
+		while (!clsCurrency::IsCurrencyExist(CurrencyCode))
 		{
+			cout << "\nPlease enter Currency Code: ";
 
-			cout << "\nCurrency Found :-)\n ";
-			_PrintCurrencyCard(cCurrency);
+			CurrencyCode = clsInputValidate::ReadString();
+			
+		}
+		clsCurrency cCurrency = clsCurrency::FindByCurrencyCode(CurrencyCode);
+		_PrintCurrencyCard(cCurrency);
 
 			cout << "\nAre you sure you want ot update the rate of this currency y/n? ";
 			char Answer = 'n';
@@ -56,21 +56,13 @@ public:
 
 			if (tolower(Answer) == 'y')
 			{
-				double NewRate;
+				
 
-				cout << "\nEnter New Rate: ";
-				cin >> NewRate;
-
+				cCurrency.UpdateRate(_ReadNewRate());
 				cout << "CurrencyUpdate it Successfully \n\n";
-				cCurrency.UpdateRate(NewRate);
-				_ShowResult(cCurrency);
+				_PrintCurrencyCard(cCurrency);
+
 			}
-		}
-		else
-		{
-			cout << "\nCourrecy Did not found\n";
-			
-		}
 	}
 };
 

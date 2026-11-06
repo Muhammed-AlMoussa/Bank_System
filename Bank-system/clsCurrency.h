@@ -226,5 +226,17 @@ public:
     {
         return _LoadCurrencysDataFromFile();
     }
+
+    static float ToDollar( float AmountToConvert , float Rate)
+    {
+        
+        return AmountToConvert / Rate;
+    }
+
+    static float FromDollar(float AmountToConvert , float Rate)
+    {
+        return AmountToConvert * Rate;
+
+    }
 };
 
