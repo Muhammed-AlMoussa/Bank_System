@@ -34,6 +34,11 @@ public:
     static void ShowCurrenciesExchangeListScreen()
     {
         vector <clsCurrency> vCurrencies = clsCurrency::GetCurrenciesList();
+        string Title = "\t  Currencies List Screen";
+        string SubTitle = "\t    (" + to_string(vCurrencies.size()) + ") Currency.";
+
+        _DrawScreenHeader(Title, SubTitle);
+
 
         _PrintCurrencyExchangeHeader();
 

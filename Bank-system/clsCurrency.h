@@ -158,6 +158,8 @@ public:
 
     static clsCurrency FindByCountry(string Country)
     {
+        Country = clsString::UpperFirstLetterOfEachWord(Country);
+
         vector <clsCurrency> Currency = _LoadCurrencysDataFromFile();
 
         fstream MyFile;
@@ -174,14 +176,17 @@ public:
                     return C;
                 }
             }
-            return _GetEmptyCurrencyObject();
+            
 
         }
+        MyFile.close();
 
+        return _GetEmptyCurrencyObject();
     }
 
-    static clsCurrency FindByCurrencyName(string CurrencyName)
+    static clsCurrency FindByCurrencyCode(string CurrencyCode)
     {
+        CurrencyCode = clsString::UpperAllString(CurrencyCode);
         vector <clsCurrency> Currency = _LoadCurrencysDataFromFile();
 
         fstream MyFile;
@@ -192,16 +197,17 @@ public:
             for (clsCurrency& C : Currency)
             {
 
-                if (C.getCurrencyName() == CurrencyName)
+                if (C.getCurrencyCode() == CurrencyCode)
                 {
                     MyFile.close();
                     return C;
                 }
             }
-            return _GetEmptyCurrencyObject();
+            
 
         }
-
+        MyFile.close();
+        return _GetEmptyCurrencyObject();
     }
 
     bool IsEmpty()
@@ -211,7 +217,7 @@ public:
 
     static bool IsCurrencyExist(string CurrencyName)
     {
-        clsCurrency Currency = clsCurrency::FindByCurrencyName(CurrencyName);
+        clsCurrency Currency = clsCurrency::FindByCurrencyCode(CurrencyName);
 
         return (!Currency.IsEmpty());
     }
