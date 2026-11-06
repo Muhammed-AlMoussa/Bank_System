@@ -12,7 +12,7 @@
 #include"clsManageUser.h"
 #include"clsLogout.h"
 #include"clsRegisterLoginScreen.h"
-#include"clsCurrencyScreen.h"
+#include"clsCurrencyExchangeMainScreen.h"
 
 using namespace std;
 

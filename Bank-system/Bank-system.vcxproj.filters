@@ -116,7 +116,7 @@
     <ClInclude Include="clsCurrency.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="clsCurrencyScreen.h">
+    <ClInclude Include="clsCurrencyExchangeMainScreen.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
