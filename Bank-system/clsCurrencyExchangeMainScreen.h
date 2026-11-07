@@ -20,7 +20,7 @@ private:
 		"Enter Number between 1 and 5: ";
 
 		short Number = clsInputValidate::
-			ReadShortNumberBetween(1, 5, "Enter Number between 1 and 5: ");
+			ReadNumberBetween<short>(1, 5, "Enter Number between 1 and 5: ");
 		return Number;
 	}
 

@@ -21,7 +21,7 @@ private :
     static short _ReadShortNumber()
     {
         short Number = clsInputValidate::
-            ReadShortNumberBetween(1, 6, "Enter Number Between 1 & 6 : ");
+            ReadNumberBetween<short>(1, 6, "Enter Number Between 1 & 6 : ");
         return Number;
     }
 

@@ -42,7 +42,7 @@ public:
 
 		cout << "\nFind By: [1] Code or [2] Country ? ";
 		enFindCurrncy FindOption = (enFindCurrncy)clsInputValidate
-			::ReadShortNumberBetween(1, 2, "Find By: [1] Code or [2] Country ? ");
+			::ReadNumberBetween(1, 2, "Find By: [1] Code or [2] Country ? ");
 
 		if (FindOption == enFindCurrncy::eCode)
 		{

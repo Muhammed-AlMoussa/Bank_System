@@ -8,22 +8,7 @@ class clsInputValidate
 {
 public:
 
-	static bool IsNumberBetween(short Number, short From, short To)
-	{
-		return ((Number >= From) && (Number <= To));
-	}
-
-	static bool IsNumberBetween(int Number, int From, int To)
-	{
-		return ((Number >= From) && (Number <= To));
-	}
-
-	static bool IsNumberBetween(float Number, float From, float To)
-	{
-		return ((Number >= From) && (Number <= To));
-	}
-
-	static bool IsNumberBetween(double Number, double From, double To)
+	 template <typename T> static bool IsNumberBetween(T Number, T From, T To)
 	{
 		return ((Number >= From) && (Number <= To));
 	}
@@ -43,9 +28,9 @@ public:
 		return false;
 	}
 
-	static int ReadIntNumber(string StringValidationMessage)
+	template <typename T> static T ReadNumber(string StringValidationMessage)
 	{
-		int Number;
+		T Number;
 
 		while (!(cin >> Number))
 		{
@@ -56,60 +41,13 @@ public:
 		return Number;
 	}
 
-	static short ReadShortNumber(string StringValidationMessage)
+	template <typename T> static T ReadNumberBetween(T From, T To, string StringValidationMessage)
 	{
-		short Number;
-
-		while (!(cin >> Number))
-		{
-			cin.clear();
-			cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-			cout << StringValidationMessage << endl;
-		}
-		return Number;
-	}
-
-	static int ReadIntNumberBetween(int From, int To, string StringValidationMessage)
-	{
-		int Number = ReadIntNumber(StringValidationMessage);
+		T Number = ReadNumber<T>(StringValidationMessage);
 		while (!IsNumberBetween(Number, From, To))
 		{
 			cout << StringValidationMessage;
-			Number = ReadIntNumber(StringValidationMessage);
-		}
-		return Number;
-	}
-
-	static double ReadDblNumberBetween(double From, double To, string StringValidationMessage)
-	{
-		double Number = ReadDblNumber(StringValidationMessage);
-		while (!IsNumberBetween(Number, From, To))
-		{
-			cout << StringValidationMessage;
-			Number = ReadDblNumber(StringValidationMessage);
-		}
-		return Number;
-	}
-
-	static int ReadShortNumberBetween(short From, short To, string StringValidationMessage)
-	{
-		short Number = ReadShortNumber(StringValidationMessage);
-		while (!IsNumberBetween(Number, From, To))
-		{
-			cout << StringValidationMessage;
-			Number = ReadShortNumber(StringValidationMessage);
-		}
-		return Number;
-	}
-
-	static double ReadDblNumber(string Messge)
-	{
-		double Number;
-		while (!(cin >> Number))
-		{
-			cin.clear();
-			cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-			cout << Messge << endl;
+			Number = ReadNumber<T>(StringValidationMessage);
 		}
 		return Number;
 	}

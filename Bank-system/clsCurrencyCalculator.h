@@ -56,7 +56,9 @@ private:
 		}
 	
 		_PrintCurrencyCard(Currency2, "Convert To: \n");
+
 		float AmountCurrency2 = Currency1.ConvertToOtherCurrecny(Amount, Currency2);
+
 		cout << USDAmount << " " << Currency2.getCurrencyCode() << " = " <<
 			AmountCurrency2 << endl;
 	}

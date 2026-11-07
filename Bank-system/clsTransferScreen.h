@@ -24,7 +24,7 @@ private:
 		short Amount = 0;
 		cout << "\nEnter Transfer Amount: ";
 		Amount = clsInputValidate::
-			ReadDblNumberBetween(0, SourceClient.AccountBalance,
+			ReadNumberBetween<double>(0, SourceClient.AccountBalance,
 				"Amout Exceeds the available Balance,Enter another Amount: ");
 		return Amount;
 	}
